@@ -12,27 +12,39 @@ const RunawayButton = ({ onFinalClick, containerRef }: RunawayButtonProps) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [attempts, setAttempts] = useState(0);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const [isFloating, setIsFloating] = useState(false);
 
-  const moveButton = useCallback(() => {
-    if (attempts >= 3) return;
 
-    const container = containerRef.current;
-    const button = buttonRef.current;
-    if (!container || !button) return;
+ const moveButton = useCallback(() => {
+  if (attempts >= 3) return;
 
-    const containerRect = container.getBoundingClientRect();
-    const buttonRect = button.getBoundingClientRect();
+  setIsFloating(true); // 👈 detach from layout AFTER first move
 
-    const maxX = containerRect.width - buttonRect.width - 20;
-    const maxY = containerRect.height - buttonRect.height - 20;
+  const container = containerRef.current;
+  const button = buttonRef.current;
+  if (!container || !button) return;
 
-    const newX = Math.max(10, Math.min(maxX, Math.random() * maxX));
-    const newY = Math.max(10, Math.min(maxY, Math.random() * maxY));
+  const containerRect = container.getBoundingClientRect();
+  const buttonRect = button.getBoundingClientRect();
 
-    setPosition({ x: newX - containerRect.width / 2 + buttonRect.width / 2, y: newY - containerRect.height / 2 + buttonRect.height / 2 });
-    setTextIndex((prev) => Math.min(prev + 1, buttonTexts.length - 1));
-    setAttempts((prev) => prev + 1);
-  }, [attempts, containerRef]);
+  const padding = 16;
+  const maxX = containerRect.width - buttonRect.width - padding;
+  const maxY = containerRect.height - buttonRect.height - padding;
+
+  const positions = [
+    { x: padding, y: padding },
+    { x: maxX, y: padding },
+    { x: padding, y: maxY },
+    { x: maxX, y: maxY },
+  ];
+
+  const choice = positions[Math.floor(Math.random() * positions.length)];
+
+  setPosition({ x: choice.x, y: choice.y });
+  setTextIndex((prev) => Math.min(prev + 1, buttonTexts.length - 1));
+  setAttempts((prev) => prev + 1);
+}, [attempts, containerRef]);
+
 
   const handleInteraction = (e: React.MouseEvent | React.TouchEvent) => {
     if (attempts < 3) {
@@ -48,18 +60,25 @@ const RunawayButton = ({ onFinalClick, containerRef }: RunawayButtonProps) => {
   };
 
   return (
-    <button
-      ref={buttonRef}
-      className="btn-romantic-secondary min-w-[140px] transition-all duration-300 ease-out"
-      style={{
-        transform: `translate(${position.x}px, ${position.y}px)`,
-      }}
-      onMouseEnter={handleInteraction}
-      onTouchStart={handleInteraction}
-      onClick={handleClick}
-    >
-      {buttonTexts[textIndex]}
-    </button>
+   <button
+  ref={buttonRef}
+  className={`
+    btn-romantic-secondary min-w-[140px]
+    transition-transform duration-300 ease-out
+    ${isFloating ? "absolute" : "relative"}
+  `}
+  style={{
+    transform: isFloating
+      ? `translate(${position.x}px, ${position.y}px)`
+      : "none",
+  }}
+  onMouseEnter={handleInteraction}
+  onTouchStart={handleInteraction}
+  onClick={handleClick}
+>
+  {buttonTexts[textIndex]}
+</button>
+
   );
 };
 

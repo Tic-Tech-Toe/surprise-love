@@ -29,12 +29,6 @@ const BoringMode = ({ onTransform }: BoringModeProps) => {
             </div>
           </div>
 
-          <p className="font-boring text-xs text-muted-foreground mt-6 text-center italic">
-            Come on… I know it's you.
-          </p>
-          <p className="font-boring text-xs text-muted-foreground/70 text-center">
-            And only you, Kanchan 💗
-          </p>
         </div>
       </div>
     </div>

@@ -5,7 +5,8 @@ import LottieAnimation from "./LottieAnimation";
 import RunawayButton from "./RunawayButton";
 
 // Free romantic Lottie animation URL
-const LOVE_ANIMATION_URL = "https://assets2.lottiefiles.com/packages/lf20_cbrbre30.json";
+// const LOVE_ANIMATION_URL = "https://assets2.lottiefiles.com/packages/lf20_cbrbre30.json";
+const LOVE_ANIMATION_URL = "/love2.json";
 
 const LuvvyDubbyMode = () => {
   const navigate = useNavigate();
