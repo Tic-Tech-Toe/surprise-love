@@ -1,8 +1,11 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FloatingHearts from "./FloatingHearts";
-import LottiePlaceholder from "./LottiePlaceholder";
+import LottieAnimation from "./LottieAnimation";
 import RunawayButton from "./RunawayButton";
+
+// Free romantic Lottie animation URL
+const LOVE_ANIMATION_URL = "https://assets2.lottiefiles.com/packages/lf20_cbrbre30.json";
 
 const LuvvyDubbyMode = () => {
   const navigate = useNavigate();
@@ -32,7 +35,10 @@ const LuvvyDubbyMode = () => {
         </div>
 
         <div className="w-full max-w-sm mx-auto mb-8 animate-scale-up" style={{ animationDelay: "0.3s" }}>
-          <LottiePlaceholder className="h-48 md:h-64" />
+          <LottieAnimation
+            url={LOVE_ANIMATION_URL}
+            className="h-48 md:h-64 w-full"
+          />
         </div>
 
         <div className="text-center mb-8 animate-fade-in" style={{ animationDelay: "0.5s" }}>

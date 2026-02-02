@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FloatingHearts from "@/components/FloatingHearts";
+import LottieAnimation from "@/components/LottieAnimation";
+
+// Free airplane Lottie animation
+const PLANE_LOADING_URL = "https://assets10.lottiefiles.com/packages/lf20_UJNc2t.json";
 
 const Loading = () => {
   const navigate = useNavigate();
@@ -59,7 +63,12 @@ const Loading = () => {
 
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4">
         <div className="text-center">
-          <div className="text-6xl md:text-8xl mb-8 animate-plane-fly">✈️</div>
+          <div className="w-40 h-40 md:w-56 md:h-56 mx-auto mb-8">
+            <LottieAnimation
+              url={PLANE_LOADING_URL}
+              className="w-full h-full"
+            />
+          </div>
 
           <h1 className="font-romantic text-3xl md:text-4xl text-foreground mb-4">
             Booking your flight tickets{dots} ✈️💗

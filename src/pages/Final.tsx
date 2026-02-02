@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import FloatingHearts from "@/components/FloatingHearts";
-import LottiePlaceholder from "@/components/LottiePlaceholder";
+import LottieAnimation from "@/components/LottieAnimation";
+
+// Free Lottie animation URLs for characters
+const GIRL_ANIMATION_URL = "https://assets3.lottiefiles.com/packages/lf20_puciaact.json";
+const BOY_ANIMATION_URL = "https://assets9.lottiefiles.com/packages/lf20_kkflmtur.json";
+const PLANE_ANIMATION_URL = "https://assets5.lottiefiles.com/packages/lf20_jhu1lqdz.json";
 
 const Final = () => {
   const [distance, setDistance] = useState(100);
-  const [planePosition, setPlanePosition] = useState(0);
+  const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
     // Update document title
@@ -15,11 +20,11 @@ const Final = () => {
       setDistance((prev) => {
         if (prev <= 10) {
           clearInterval(interval);
+          setShowMessage(true);
           return 10;
         }
         return prev - 2;
       });
-      setPlanePosition((prev) => Math.min(prev + 2, 100));
     }, 100);
 
     return () => clearInterval(interval);
@@ -35,74 +40,81 @@ const Final = () => {
         </h1>
 
         {/* Desktop Layout */}
-        <div className="hidden md:flex items-center justify-center w-full max-w-4xl gap-8">
+        <div className="hidden md:flex items-center justify-center w-full max-w-5xl">
           <div
             className="transition-all duration-300 animate-fade-in"
             style={{
-              transform: `translateX(${(100 - distance) / 3}%)`,
+              transform: `translateX(${(100 - distance) * 0.8}px)`,
             }}
           >
-            <LottiePlaceholder
-              label="👧 Girl"
+            <LottieAnimation
+              url={GIRL_ANIMATION_URL}
               className="w-48 h-64"
             />
           </div>
 
           <div
-            className="text-5xl animate-plane-fly transition-all duration-300"
+            className="mx-8 transition-all duration-300"
             style={{
-              transform: `translateX(${planePosition / 2 - 25}px)`,
+              opacity: distance > 20 ? 1 : 0,
             }}
           >
-            ✈️
+            <LottieAnimation
+              url={PLANE_ANIMATION_URL}
+              className="w-32 h-32"
+            />
           </div>
 
           <div
             className="transition-all duration-300 animate-fade-in"
             style={{
               animationDelay: "0.3s",
-              transform: `translateX(-${(100 - distance) / 3}%)`,
+              transform: `translateX(-${(100 - distance) * 0.8}px)`,
             }}
           >
-            <LottiePlaceholder
-              label="👦 Boy"
+            <LottieAnimation
+              url={BOY_ANIMATION_URL}
               className="w-48 h-64"
             />
           </div>
         </div>
 
         {/* Mobile Layout - Vertical */}
-        <div className="flex md:hidden flex-col items-center gap-6 w-full max-w-xs">
+        <div className="flex md:hidden flex-col items-center gap-4 w-full max-w-xs">
           <div
             className="transition-all duration-300 animate-fade-in"
             style={{
-              transform: `translateY(${(100 - distance) / 4}px)`,
+              transform: `translateY(${(100 - distance) * 0.4}px)`,
             }}
           >
-            <LottiePlaceholder
-              label="👧 Girl"
+            <LottieAnimation
+              url={GIRL_ANIMATION_URL}
               className="w-40 h-48"
             />
           </div>
 
           <div
-            className="text-4xl animate-plane-fly transition-all duration-300"
+            className="transition-all duration-300"
             style={{
-              transform: `rotate(90deg) translateX(${planePosition / 4}px)`,
+              opacity: distance > 20 ? 1 : 0,
+              transform: "rotate(90deg)",
             }}
           >
-            ✈️
+            <LottieAnimation
+              url={PLANE_ANIMATION_URL}
+              className="w-24 h-24"
+            />
           </div>
 
           <div
             className="transition-all duration-300 animate-fade-in"
             style={{
               animationDelay: "0.3s",
-              transform: `translateY(-${(100 - distance) / 4}px)`,
+              transform: `translateY(-${(100 - distance) * 0.4}px)`,
             }}
           >
-            <LottiePlaceholder
-              label="👦 Boy"
+            <LottieAnimation
+              url={BOY_ANIMATION_URL}
               className="w-40 h-48"
             />
           </div>
@@ -118,7 +130,7 @@ const Final = () => {
           </p>
         </div>
 
-        {distance <= 10 && (
+        {showMessage && (
           <div className="mt-8 animate-scale-up">
             <p className="font-romantic text-2xl md:text-3xl text-center text-foreground">
               And they lived happily ever after... 💗
