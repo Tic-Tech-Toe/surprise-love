@@ -1,12 +1,37 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState, useEffect } from "react";
+import BoringMode from "@/components/BoringMode";
+import LuvvyDubbyMode from "@/components/LuvvyDubbyMode";
 
 const Index = () => {
+  const [transformed, setTransformed] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  useEffect(() => {
+    // Update document title based on state
+    if (transformed) {
+      document.title = "💕 Will you be my Valentine?";
+    } else {
+      document.title = "Valentine Form (Very Boring)";
+    }
+  }, [transformed]);
+
+  const handleTransform = () => {
+    if (!transformed) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setTransformed(true);
+        setIsTransitioning(false);
+      }, 300);
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div
+      className={`transition-all duration-500 ${
+        isTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"
+      }`}
+    >
+      {transformed ? <LuvvyDubbyMode /> : <BoringMode onTransform={handleTransform} />}
     </div>
   );
 };
