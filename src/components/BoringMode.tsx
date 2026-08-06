@@ -53,65 +53,70 @@ const BoringMode = ({ onTransform }: BoringModeProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <div className="border border-black p-6 bg-white">
-          <h1 className="font-boring text-2xl md:text-3xl font-normal text-black mb-2 text-center">
-            Valentine Form (Very Boring)
-          </h1>
-          <p className="font-boring text-base text-black mb-6 text-center">
-            Please fill out the form honestly.
-          </p>
+    <div className="min-h-screen flex flex-col md:flex-row bg-white">
+      <MemoriesPanel />
 
-          <form className="space-y-4" onSubmit={handleSubmit}>
-            <div>
-              <label className="font-boring text-sm text-black block mb-1" htmlFor="name">
-                Name:
-              </label>
-              <input
-                id="name"
-                type="text"
-                placeholder="Enter your name"
-                className="input-boring"
-                maxLength={60}
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
+      <div className="w-full md:w-1/2 min-h-screen flex items-center justify-center p-4 md:p-8">
+        <div className="w-full max-w-md">
+          <div className="border border-black p-6 bg-white">
+            <h1 className="font-boring text-2xl md:text-3xl font-normal text-black mb-2 text-center">
+              Valentine Form (Very Boring)
+            </h1>
+            <p className="font-boring text-base text-black mb-6 text-center">
+              Please fill out the form honestly.
+            </p>
 
-            <div>
-              <label className="font-boring text-sm text-black block mb-1" htmlFor="password">
-                Password:
-              </label>
-              <input
-                id="password"
-                type="password"
-                placeholder="Enter the password"
-                className="input-boring"
-                maxLength={80}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
+            <form className="space-y-4" onSubmit={handleSubmit}>
+              <div>
+                <label className="font-boring text-sm text-black block mb-1" htmlFor="name">
+                  Name:
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  placeholder="Enter your name"
+                  className="input-boring"
+                  maxLength={60}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
 
-            {message && (
-              <p className="font-boring text-sm text-black" role="alert">
-                {message}
-              </p>
-            )}
-            {hint && <p className="font-boring text-sm text-black">{hint}</p>}
+              <div>
+                <label className="font-boring text-sm text-black block mb-1" htmlFor="password">
+                  Password:
+                </label>
+                <input
+                  id="password"
+                  type="password"
+                  placeholder="Enter the password"
+                  className="input-boring"
+                  maxLength={80}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
 
-            <button
-              type="submit"
-              className="font-boring text-sm text-black border border-black px-4 py-2 w-full bg-white"
-            >
-              Submit
-            </button>
-          </form>
+              {message && (
+                <p className="font-boring text-sm text-black" role="alert">
+                  {message}
+                </p>
+              )}
+              {hint && <p className="font-boring text-sm text-black">{hint}</p>}
+
+              <button
+                type="submit"
+                className="font-boring text-sm text-black border border-black px-4 py-2 w-full bg-white"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   );
 };
+
 
 export default BoringMode;
