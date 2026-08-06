@@ -4,7 +4,7 @@ interface BoringModeProps {
   onTransform: () => void;
 }
 
-const PASSWORD = "toothemoonandback";
+const PASSWORD = "tothemoonandback";
 const NEAR_MISS = "iloveyoutothemoonandback";
 
 const normalize = (value: string) => value.toLowerCase().replace(/[^a-z]/g, "");
